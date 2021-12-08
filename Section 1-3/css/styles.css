@@ -1,0 +1,40 @@
+/********************** ELEMENT/TAG SELECTORS ******************************/
+body {
+    background-color: #D8e4e4;
+  }
+
+  h1 {
+      color:#183444
+  }
+  h3 {
+    color: #408c8c;
+  }
+
+  hr {
+    border-style: dotted none none none;
+    border-color: #183444;
+    border-width: 10px;
+    width: 5%;
+  }
+
+  img:hover {
+    background-color: blue;
+  }
+
+/********************************** ID SELECTORS ***************************/
+#heading {
+  color: blue;
+}
+
+/********************************** CLASS SELECTORS ***************************/
+.bacon {
+  background-color: red;
+}
+
+.broccoli {
+  background-color: seagreen;
+}
+
+.circular {
+  border-radius: 100%;
+}
