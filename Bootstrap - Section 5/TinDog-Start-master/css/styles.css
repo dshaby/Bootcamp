@@ -1,0 +1,31 @@
+/* ELEMENTS */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    size: 3rem;
+    line-height: 1.5;
+}
+
+h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+}
+
+p {
+    font-family: 'Montserrat', sans-serif;
+}
+
+button {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* IDs */
+#title {
+    background-color: #D8e4e4;
+}
+
+/* CLASSES */
+/* Modify the background color */
+.navbar-custom {
+    background-color: #408c8c;
+}
