@@ -70,7 +70,7 @@
 
       <nav class="navbar navbar-expand-lg navbar-dark">
 
-        <a class="navbar-brand" href="">BOTE</a>
+        <a class="navbar-brand" href="">tinDog</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
           aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,13 +81,13 @@
 
           <ul class="navbar-nav ms-auto menu-items">
             <li class="navbar-item">
-              <a class="nav-link" href="">Contact Link</a>
+              <a class="nav-link" href="#footer">Contact</a>
             </li>
             <li class="navbar-item">
-              <a class="nav-link" href="">Pricing</a>
+              <a class="nav-link" href="#pricing">Pricing</a>
             </li>
             <li class="navbar-item">
-              <a class="nav-link" href="">Download</a>
+              <a class="nav-link" href="#cta">Download</a>
             </li>
           </ul>
 
@@ -99,16 +99,20 @@
 
         <div class="col-lg-7">
           <h1>Meet new and interesting dogs nearby.</h1>
-          <button type="button" class="btn btn-dark btn-lg download-button"><i class="fab fa-apple"></i>
-            Download</button>
+          <div class="buttons-container">
+            <button type="button" class="btn btn-dark btn-lg download-button"><i class="fab fa-apple"></i>
+              Download</button>
 
-          <!-- <button type="button" class="btn btn-dark"
+            <!-- <button type="button" class="btn btn-dark"
             style="background: url(images/google-play-badge.png">Download</button> -->
-          <!-- <a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">Download</a> -->
-          <input type="image" class="GooglePlay btn btn-lg download-button" src="images/google-play-badge.png" />
-        </div>
+            <!-- <a href="#" class="btn btn-primary" role="button" data-bs-toggle="button">Download</a> -->
+            <span class="googlePlayContainer">
+              <input type="image" class="GooglePlay btn btn-lg download-button" src="images/google-play-badge.png" />
+            </span>
 
-        <div class="col-lg-5">
+          </div>
+        </div>
+        <div class="col-lg-5 position-relative">
           <img class="iPhone6" src="images/iphone6.png" alt="iphone-mockup">
         </div>
 
@@ -147,12 +151,12 @@
 
     <div id="testimonial-carousel" class="carousel slide" data-bs-ride="carousel" data-bs-pause="hover">
       <div class="carousel-inner">
-        <div class="carousel-item active" data-bs-interval="3000">
+        <div class="carousel-item active" data-bs-interval="5000">
           <h2>I no longer have to sniff other dogs for love. I've found the hottest Corgi on TinDog. Woof.</h2>
           <img class="testimonial-image" src="images/dog-img.jpg" alt="dog-profile">
           <em>Pebbles, New York</em>
         </div>
-        <div class="carousel-item" data-bs-interval="3000">
+        <div class="carousel-item" data-bs-interval="5000">
           <h2 class="testimonial-text">My dog used to be so lonely, but with TinDog's help, they've found the love of
             their life. I think.</h2>
           <img class="testimonial-image" src="images/lady-img.jpg" alt="lady-profile">
@@ -254,9 +258,9 @@
 
   <section id="cta">
 
-    <h3>Find the True Love of Your Dog's Life Today.</h3>
-    <button type="button">Download</button>
-    <button type="button">Download</button>
+    <h3 class="ctaHeading">Find the True Love of Your Dog's Life Today.</h3>
+    <button type="button" class="btn btn-dark btn-lg cta-buttons"><i class="fab fa-apple"></i> Download</button>
+    <button type="button" class="btn btn-light btn-lg cta-buttons"><i class="fab fa-google-play"></i> Download</button>
 
   </section>
 
@@ -265,6 +269,10 @@
 
   <footer id="footer">
 
+    <i class="fab footer-icons fa-twitter"></i>
+    <i class="fab footer-icons fa-facebook-f"></i>
+    <i class="fab footer-icons fa-instagram"></i>
+    <i class="far footer-icons fa-envelope"></i>
     <p>© Copyright 2018 TinDog</p>
 
   </footer>
