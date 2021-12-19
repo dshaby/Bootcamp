@@ -1,25 +1,17 @@
 /* ELEMENTS */
-
 body {
     font-family: 'Montserrat', sans-serif;
 }
 
-h3, h4, h5, h6 {
-    font-family: 'Poppins', sans-serif;
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    /* Do I need this here below? */
     size: 3rem;
     line-height: 1.5;
 }
 
-h1 {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 800;
-    font-size: 3.5rem;
-    line-height: 1.5;
-    color:#fff;
-}
-
 h2 {
-    font-family: 'Montserrat', sans-serif;
     size: 3rem;
     line-height: 1.5;
     font-weight: 700;
@@ -39,11 +31,20 @@ button {
 }
 
 /* CLASSES */
+
+/* HEADINGS */
+.bigHeading {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 3.5rem;
+    line-height: 1.5;
+    color:#fff;
+}
+
 /* Modify the background color */
 .navbar {
     padding: 0 0 4.5rem 0;
 }
-
 
 .navbar-brand {
     font-weight: 600;
