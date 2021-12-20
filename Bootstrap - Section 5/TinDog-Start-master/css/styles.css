@@ -15,6 +15,10 @@ p {
     color: #8f8f8f;
 }
 
+button {
+    font-family: 'Poppins', sans-serif;
+}
+
 /* HEADINGS */
 .bigHeading {
     font-family: 'Poppins', sans-serif;
@@ -29,30 +33,28 @@ p {
     line-height: 1.5;
 }
 
-button {
-    font-family: 'Poppins', sans-serif;
-}
-
 /* Containers */
 .container-fluid {
     padding: 7% 15%;
 }
 
-/* IDs */
-
-/* Title Section */
-#title {
+.colored-section {
     background-color: #ff4c68;
-    text-align: left;
+    color: #fff;
 }
+
+.white-section {
+    background-color: #fff;
+}
+
+/**** TITLE SECTION ****/
 
 #title .container-fluid {
     padding: 3% 15% 7%;
 }
 
-/* CLASSES */
+/* Navbar */
 
-/* Modify the background color */
 .navbar {
     padding: 0 0 4.5rem 0;
 }
@@ -71,6 +73,8 @@ button {
     font-size: 1.2rem;
     font-family: "Montserrat-Light";
 }
+
+/* Title section body */
 
 .iPhone6 {
     -ms-transform: rotate(20deg); /* IE 9 */
@@ -92,17 +96,11 @@ button {
     padding: 0;
     margin: 0;
     border: 0;
-    /* height: auto;
-    /* position: absolute; */
-    /* left: 155px;
-    bottom: 30px;
-    top: 0px; */
 }
 
-/* FEATURES SECTION */
+/**** FEATURES SECTION ****/
 #features .container-fluid {
     position: relative;
-    background-color: #fff;
 }
 
 .feature-box {
@@ -112,7 +110,6 @@ button {
 
 
 .feature-icon {
-    /* font-size: 38px; */
     color: #ef8172;
     margin-bottom: 1rem;
 }
@@ -129,11 +126,10 @@ button {
     color:#8f8f8f;
 }
 
-/* Testimonial Section */
+/**** TESTIMONIALS SECTION ****/
 
 #testimonials {
     background-color:#ef8172;
-    color: #fff;
 }
 
 .testimonial-text {
@@ -157,8 +153,7 @@ button {
     margin: 20px 20px 50px;
 }
 
-/* Pricing Section */
-
+/**** PRICING SECTION ****/
 
 .pricing-column {
     padding: 3% 2%;
@@ -169,45 +164,31 @@ button {
     line-height: 1.5;
 }
 
-/* CTA */
-#cta {
-    background-color: #ff4c68;
-    color: #fff;
-}
+/**** CTA SECTION ****/
 
 .cta-buttons {
     margin: 30px 10px;
 }
 
-/* FOOTER */
+/**** FOOTER SECTION ****/
 
 .footer-icons {
     margin: 20px 10px;
 }
 
-/* MEDIA QUERIES */
+/**** MEDIA QUERIES ****/
 /* MOBILE & TABLET */
 @media screen and (max-width:991px) {
-    #title {
+    #title .container-fluid {
         text-align: center;
     }
 
     .buttons-container {
         height: 120px;
         width: 100%;
-
     }
 
-    /* .download-button {
-        margin: auto;
-        } */
-
-    /* .googlePlayContainer {
-        /* height: 80px; */
-    /* } */ 
-
     .GooglePlay {
-        /* margin: 0px auto 0; */
         position: static;
     }
 
