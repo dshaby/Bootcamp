@@ -1,3 +1,96 @@
+// SECTION 134
+function beer() {
+
+    var numberBeers = 99;
+
+    while (numberBeers > 2) {
+
+        console.log(numberBeers + " bottles of beer on the wall, " +
+            numberBeers + " bottles of beer. Take one down and pass it around, "
+            + (numberBeers - 1) + " bottles of beer on the wall.");
+
+        numberBeers--;
+    }
+
+    console.log("2 bottles of beer on the wall, 2 bottles of beer. Take one down and pass it around, 1 bottle of beer on the wall.");
+
+    console.log("1 bottle of beer on the wall, 1 bottle of beer. Take one down and pass it around, no more bottles of beer on the wall.");
+
+    console.log("No more bottles of beer on the wall, no more bottles of beer. Go to the store and buy some more, 99 bottles of beer on the wall.")
+}
+
+beer();
+
+// SECTION 133
+function whosPaying(names) {
+
+    /******Don't change the code above*******/
+
+    //Write your code here.
+
+    names = ["Angela", "Ben", "Jenny", "Michael", "Chloe"];
+    var random = Math.floor(Math.random() * names.length);
+
+    return names[random] + " is going to buy lunch today!"
+
+
+
+
+    /******Don't change the code below*******/
+}
+
+// SECTION 132
+var output = [];
+
+var count = 1
+
+function fizzBuzz() {
+
+    if (count % 15 === 0) {
+        output.push("FizzBuzz");
+    } else if (count % 5 === 0) {
+        output.push("Buzz");
+    } else if (count % 3 === 0) {
+        output.push("Fizz");
+    } else output.push(count);
+
+    count++;
+    console.log(output);
+}
+
+fizzBuzz();
+
+// var output = [];
+
+// function fizzBuzz() {
+
+//     if ((output.length + 1) % 15 === 0) {
+//         output.push("FizzBuzz");
+//     } else if ((output.length + 1) % 3 === 0) {
+//         output.push("Fizz");
+//     } else if ((output.length + 1) % 5 === 0) {
+//         output.push("Buzz");
+//     } else {
+//         output.push(output.length + 1);
+//     }
+//     console.log(output);
+// }
+
+// fizzBuzz();
+
+
+// SECTION 131
+var yourName = prompt("what is your name?");
+var guestList = ["Angela", "Jack", "Pam", "James", "Lara", "Jason"];
+
+if (guestList.includes(yourName)) {
+    alert("Welcome " + yourName + "!");
+} else {
+    alert("Sorry, maybe next time!");
+}
+
+
+
 var myName = "Shaby";
 console.log(myName);
 alert(myName);
@@ -36,3 +129,47 @@ alert("You have written " + tweet.length + " characters, you have " + characters
 
 // You have written 182 characters, you have -42 characters left
 
+function getMilk() {
+    console.log("leaveHouse");
+    console.log("moveRight");
+    console.log("moveRight");
+    console.log("moveUp");
+    console.log("moveUp");
+    console.log("moveUp");
+    console.log("moveUp");
+    console.log("moveRight");
+    console.log("moveRight");
+    console.log("moveLeft");
+    console.log("moveLeft");
+    console.log("moveDown");
+    console.log("moveDown");
+    console.log("moveDown");
+    console.log("moveDown");
+    console.log("moveLeft");
+    console.log("moveLeft");
+    console.log("enterHouse");
+}
+
+function isLeap(year) {
+    // /**************Don't change the code above****************/    
+    if (year % 4 === 0) {
+
+        if (year % 100 === 0) {
+            if (year % 400 === 0) {
+                return "Leap year.";
+            } else {
+                return "Not leap year.";
+            }
+        } else {
+            return "Leap year.";
+        }
+
+    } else {
+        return "Not leap year.";
+    }
+
+
+    // /**************Don't change the code below****************/    
+}
+
+isLeap(2100);
