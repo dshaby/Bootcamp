@@ -6,7 +6,7 @@ app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
 
-//parse html form data
+//parse html form data --> VERY IMPORTANT!
 app.use(express.urlencoded());
 
 // REGULAR CALCULATOR GET & POST REQUESTS

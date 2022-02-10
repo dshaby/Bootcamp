@@ -6,49 +6,54 @@ const https = require("https");
 const app = express();
 // Initiliazing new express app
 
-app.get("/", function (req, res) {
-    // before sending results back to client, first
-    // GET the info
-    // Must include "https://" before
-    // endpoint + paramaters using Postman
+app.use(express.urlencoded()); //to parse HTML FORM DATA
+// REQUIRED!
 
-    const weatherurl = "https://api.openweathermap.org/data/2.5/weather?q=Los Angeles&appid=5a1ec7ef7b43739a486c2e124a9084f9&units=imperial"
+app.get("/", function (req, res) {
+    res.sendFile(__dirname + "/index.html");
+});
+
+app.post("/", function (req, res) {
+    // console.log("Post request received!");
+    // So, post request was received by our server
+    // console.log(req.body.cityName);
+    // So, cityName is logging correctly
+
+    const city = req.body.cityName;
+    const apiKey = "5a1ec7ef7b43739a486c2e124a9084f9";
+    const units = "imperial";
+
+    const weatherurl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=" + units;
 
     https.get(weatherurl, function (response) {
-        console.log(response);
-        // checking if entire process of making 
-        // https GET request to weatherurl to fetch data
-        // and if we get something back
-        // response vs res to differentiate from above 
-        // logging response = a bunch of data
-        // response here is what we get from third party server
-        // better to log statuscode
         console.log(response.statusCode);
-
         response.on("data", function (data) {
-            // console.log(data); = hexidecimal data
-            const weatherData = JSON.parse(data);
-            // as a JS Object :)
-            console.log(weatherData);
 
-            const temp = weatherData.main.temp;
+            // ALL WEATHER DATA
+            const allWeatherData = JSON.parse(data);
+            console.log(allWeatherData);
+
+            // TEMPERATURE
+            const temp = allWeatherData.main.temp;
             console.log(temp);
-            const weatherDescription = weatherData.weather[0].description;
+
+            // WEATHER DESCRIPTION
+            const weatherDescription = allWeatherData.weather[0].description;
             console.log(weatherDescription);
+
+            // ICON
+            const iconID = allWeatherData.weather[0].icon;
+            const iconURL = "https://openweathermap.org/img/wn/" + iconID + "@2x.png";
+            console.log(iconURL);
+
+            res.write("<html>The city you searched: " + city);
+            res.write("<h1>The temperature in " + city + " is " + temp + " degrees Fahrenheit.</h1>");
+            res.write("<h2>Currently, the weather in " + city + " is " + weatherDescription + ".</h2>");
+            res.write("<img src =" + iconURL + " alt = Weather-Icon" + "></html>");
+            res.send();
         })
-
     })
-
-    res.send("Server is up & running!");
-    // res (response) here is what WE send to the client
 })
-
-
-
-
-
-
-
 
 app.listen(3000, function () {
     console.log("Server is running on port 3000!");
