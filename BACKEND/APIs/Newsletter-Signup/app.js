@@ -2,7 +2,6 @@ const express = require('express');
 const https = require('https');
 const mailchimp = require("@mailchimp/mailchimp_marketing");
 const app = express();
-const port = 3000;
 
 app.use(express.urlencoded());
 app.use(express.static(__dirname)); // Serving static files
@@ -14,7 +13,7 @@ app.get('/', function (req, res) {
 
 // MAILCHIMP INTEGRATION ***************
 mailchimp.setConfig({
-    apiKey: "e01b20ae8ea0445e5761fba8e7b20f65-us14",
+    apiKey: "2c03accc6620f494fb3d97c740ca4eec-us14",
     server: "us14",
 });
 
@@ -32,28 +31,63 @@ app.post("/", function (req, res) {
     const subscriber = {
         firstName: fName,
         lastName: lName,
-        email: emailAddress
+        email: emailAddress,
     };
 
+    // const subscriber_hash = md5(subscriber.email.toLowerCase());
+
+    // // const status = subscriber.status
+
+    // const runn = async () => {
+    //     const subscriberStatus = await mailchimp.lists.getListMember(
+    //         subscriber_hash,
+    //         listID,
+    //     );
+
+    //     console.log("subscriberStatus: " + subscriberStatus);
+    // }
+
+    // runn();
+
     async function run() {
-        const response = await mailchimp.lists.addListMember(listID, {
-            email_address: subscriber.email,
-            status: "subscribed",
-            merge_fields: {
-                FNAME: subscriber.firstName,
-                LNAME: subscriber.lastName
+        try {
+            // if (response.status === "subscribed") {
+            const response = await mailchimp.lists.addListMember(listID, {
+                email_address: subscriber.email,
+                status: "subscribed",
+                merge_fields: {
+                    FNAME: subscriber.firstName,
+                    LNAME: subscriber.lastName
+                }
+            });
+            console.log("Successfully added contact as an audience member. The contact's ID is " + response.id + ".");
+            res.sendFile(__dirname + "/success.html");
+            // console.log(response.statusCode);
+            // }
+
+        }
+        catch (err) {
+
+            console.log("Error Status: " + err.status);
+            console.log(err);
+
+            if (err.status === 401) {
+                res.sendFile(__dirname + "/invalidAPI.html");
+            } else {
+                res.sendFile(__dirname + "/failure.html");
             }
-        });
-        console.log("Successfully added contact as an audience member. The contact's ID is " + response.id + ".");
-    }
-
+        }
+    };
     run();
-
-    res.sendFile(__dirname + "/success.html");
 });
 
+let port = process.env.PORT;
+if (port == null || port == "") {
+    port = 3000;
+}
+
 app.listen(port, function () {
-    console.log("App listening on port " + port);
+    console.log("App listening on port: " + port);
 });
 
 // API KEY:
