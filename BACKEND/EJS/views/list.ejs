@@ -1,0 +1,29 @@
+<%- include("header") -%>
+
+    <div class="box">
+        <h1 id="heading1">It's a <%= ejsDayCategory %>!</h1>
+        <h2 id="heading2">
+            <%= ejsListTitle %>!
+        </h2>
+    </div>
+
+    <div class="box">
+        <div>
+
+        </div>
+        <% for (var i=0; i<ejsToDoItems.length; i++) { %>
+            <div class="item">
+                <input type="checkbox">
+                <p>
+                    <%= ejsToDoItems[i] %>
+                </p>
+            </div>
+            <% } %>
+
+                <form class="item" action=" <%= route %> " method="post">
+                    <input type="text" name="toDoItem" id="" placeholder="Your To-Do item" autocomplete="off">
+                    <button type="submit" name="submitButton" value="<%= ejsListTitle %>">+</button>
+                </form>
+    </div>
+
+    <%- include("footer") -%>
