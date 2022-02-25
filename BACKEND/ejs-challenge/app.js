@@ -20,8 +20,30 @@ app.get("/", function (req, res) {
   });
 });
 
+// ABOUT **************************************
+app.get("/about", function (req, res) {
+  res.render('about', {
+    ejsAboutContent: aboutContent
+  });
+});
 
+// CONTACT ************************************
+app.get("/contact", function (req, res) {
+  res.render('contact', {
+    ejsContactContent: contactContent
+  });
+});
 
+// COMPOSE *************************************
+app.get("/compose", function (req, res) {
+  res.render("compose");
+});
+
+app.post("/compose", function (req, res) {
+  const postTitle = req.body.postTitle;
+  console.log(postTitle);
+  res.render('compose');
+});
 
 
 
