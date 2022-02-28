@@ -6,4 +6,18 @@
         <%= ejsHomeStartingContent %>
     </p>
 
+    <div>
+        <% ejsPosts.forEach((post)=> { %>
+            <h3>
+                <%= post.title %>
+            </h3>
+            <p>
+                <%= post.body %>
+            </p>
+            <% }); %>
+    </div>
+
     <%- include("partials/footer"); -%>
+
+        <% var now=new Date(); %>
+            <% console.log(now.toUTCString()); %>
