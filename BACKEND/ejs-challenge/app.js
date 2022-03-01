@@ -27,10 +27,8 @@ const posts = [];
 app.get("/", function (req, res) {
   res.render('home', {
     ejsHomeStartingContent: homeStartingContent,
-    ejsPosts: posts
+    ejsPosts: posts,
   });
-  // console.log(posts);
-
 });
 
 // ABOUT **************************************
@@ -60,22 +58,24 @@ app.post("/compose", function (req, res) {
   posts.push(post);
   res.redirect("/");
 });
-
 // ROUTING PARAMATERS - Any "Posts" Page
 app.get("/posts/:postName", function (req, res) {
   const requestedTitle = _.kebabCase(req.params.postName);
+  console.log("requestedTitle: " + requestedTitle)
 
   posts.forEach(function (post) {
 
     const postedTitle = _.kebabCase(post.title);
+    console.log("postedTitle: " + postedTitle)
 
     if (postedTitle === requestedTitle) {
       console.log("Match Found!");
-    } else {
-      console.log("No Match!");
-    }
+      res.render("post", {
+        ejsSoloPostTitle: post.title,
+        ejsSoloPostBody: post.body,
+      });
+    };
   });
-  res.redirect('/');
 });
 
 app.listen(3000, function () {
