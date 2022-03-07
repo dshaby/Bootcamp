@@ -1,0 +1,29 @@
+<%- include("partials/header"); %>
+    <title>BOTE Signup</title>
+    </head>
+
+    <body class="text-center">
+
+        <main class="form-signin">
+            <form action="/" method="post">
+                <img class="mb-4" src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+                <h1 class="h3 mb-3 fw-normal">Please Join our Waitlist</h1>
+
+                <div class="form-floating">
+                    <input name="firstName" type="text" class="form-control" id="firstName" placeholder="First Name">
+                    <label for="firstName">First Name</label>
+                </div>
+                <div class="form-floating">
+                    <input name="lastName" type="text" class="form-control" id="lastName" placeholder="Last Name">
+                    <label for="lastName">Last Name</label>
+                </div>
+                <div class="form-floating ">
+                    <input name="email" type="email" class="form-control" id="floatingEmail"
+                        placeholder="name@example.com">
+                    <label for="floatingEmail">Email address</label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            </form>
+        </main>
+
+        <%- include("partials/footer"); %>

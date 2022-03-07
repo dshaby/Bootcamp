@@ -61,15 +61,10 @@ app.post("/compose", function (req, res) {
 // ROUTING PARAMATERS - Any "Posts" Page
 app.get("/posts/:postName", function (req, res) {
   const requestedTitle = _.kebabCase(req.params.postName);
-  console.log("requestedTitle: " + requestedTitle)
 
   posts.forEach(function (post) {
-
     const postedTitle = _.kebabCase(post.title);
-    console.log("postedTitle: " + postedTitle)
-
     if (postedTitle === requestedTitle) {
-      console.log("Match Found!");
       res.render("post", {
         ejsSoloPostTitle: post.title,
         ejsSoloPostBody: post.body,
