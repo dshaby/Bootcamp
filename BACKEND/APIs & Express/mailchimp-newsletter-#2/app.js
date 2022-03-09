@@ -1,6 +1,7 @@
 const express = require('express');
 const methodOverride = require('method-override');
 const app = express();
+const apiKey = require('./apiKey');
 app.use(methodOverride('_method'));
 
 app.set('view engine', 'ejs');
@@ -12,10 +13,9 @@ app.use(express.urlencoded({ extended: true }));
 const mailchimp = require("@mailchimp/mailchimp_marketing");
 
 mailchimp.setConfig({
-    apiKey: "6ca38de478a099a6b698fcca203b2acf-us14",
+    apiKey: apiKey.getAPIKey(),
     server: "us14",
 });
-// API: f
 
 app.get('/', (req, res) => {
     res.render('index');
