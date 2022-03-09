@@ -8,40 +8,41 @@ app.use(express.urlencoded({ extended: true }));
 const mailchimp = require("@mailchimp/mailchimp_marketing");
 
 mailchimp.setConfig({
-    apiKey: "e7f1c7e00ca9e55250f0d7b210cac6c2-us14",
+    apiKey: "37eee9e90d855211c79a7892792252bd-us14",
     server: "us14",
 });
+// API: 
 
 app.get('/', (req, res) => {
     res.render('index');
 });
 
 app.post('/', (req, res) => {
-
-    try {
-        const run = async () => {
+    const subscriber = {
+        fName: req.body.firstName,
+        lName: req.body.lastName,
+        email: req.body.email
+    }
+    const run = async () => {
+        try {
             const response = await mailchimp.lists.addListMember("57667409b4", {
-                email_address: req.body.email,
+                email_address: subscriber.email,
                 merge_fields: {
-                    FNAME: req.body.firstName,
-                    LNAME: req.body.lastName,
+                    FNAME: subscriber.fName,
+                    LNAME: subscriber.lName,
                 },
                 status: "subscribed",
             });
-
             console.log(response);
-            console.log("Apparantly successful");
+            res.redirect('/success');
         }
-
-        run();
-
-    } catch (error) {
-        console.log("This is error: " + error);
-        console.log("Someting failed?");
-        res.redirect('failure');
-    };
-
-})
+        catch (error) {
+            console.log(error);
+            res.redirect('/failure');
+        }
+    }
+    run();
+});
 
 app.get('/success', (req, res) => {
     res.render('success');
