@@ -7,7 +7,6 @@ app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname + '/public'));
-// const connect = require('connect');
 app.use(express.urlencoded({ extended: true }));
 
 const mailchimp = require("@mailchimp/mailchimp_marketing");
@@ -22,17 +21,12 @@ app.get('/', (req, res) => {
 });
 
 app.put('/', (req, res) => {
-    const subscriber = {
-        fName: req.body.firstName,
-        lName: req.body.lastName,
-        email: req.body.email
-    }
     const run = async () => {
         try {
-            const response = await mailchimp.lists.setListMember("57667409b4", subscriber.email, {
+            const response = await mailchimp.lists.setListMember("57667409b4", req.body.email, {
                 merge_fields: {
-                    FNAME: subscriber.fName,
-                    LNAME: subscriber.lName,
+                    FNAME: req.body.firstName,
+                    LNAME: req.body.lastName,
                 },
                 status: "subscribed",
             });
