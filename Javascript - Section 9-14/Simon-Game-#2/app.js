@@ -4,6 +4,7 @@ const gamePattern = [];
 let userClickedPattern = [];
 
 $("body").one("keypress", function () {
+    buttonClick();
     nextSequence();
 });
 
@@ -15,8 +16,10 @@ function nextSequence() {
     console.log("gamePattern: " + gamePattern);
 
     $("#" + randomChosenColor).ready(function () {
-        animate("#" + randomChosenColor);
-        playSound("#" + randomChosenColor);
+        setTimeout(function () {
+            animate("#" + randomChosenColor);
+            playSound("#" + randomChosenColor);
+        }, 700);
     });
 }
 
@@ -37,60 +40,50 @@ function buttonClick() {
     $(".btn").click(function () {
         const userChosenColor = $(this).attr("id");
         userClickedPattern.push(userChosenColor);
+        console.log("userClickedPattern: " + userClickedPattern);
 
         playSound("#" + userChosenColor);
         animate("#" + userChosenColor);
 
-        console.log("userClickedPattern: " + userClickedPattern);
         checkAnswer();
     });
 };
-buttonClick();
 
 function checkAnswer() {
-
     for (let i = 0; i < userClickedPattern.length; i++) {
 
-        if (userClickedPattern[i] === gamePattern[i]) {
-            console.log("Both arrays are equal up until [i]");
-
-            if (gamePattern.length === userClickedPattern.length) {
-                setTimeout(function () {
-                    nextSequence();
-                }, 800);
-
-                userClickedPattern = [];
-            } else {
-                // FOR SOME REASON, I'M GETTING THAT gamePattern[1] === userClickedPattern[1] even if they're not
-                // although, gamePattern[0] appropriately checks if it's === to userClickedPattern[0]
-                // FIGURE THIS OUT
-            }
-
-        } else {
-            console.log("Not equal arrays");
+        if (userClickedPattern[i] != gamePattern[i]) {
             stopGame();
         }
-
-        // var is_same = gamePattern.every(function (color, index) {
-        //     return color === userClickedPattern[index]
-        // });
-        // console.log(is_same);
-        // if (is_same === true) {
-        // console.log("Both arrays are equal");
-        // setTimeout(function () {
-        //     nextSequence();
-        // }, 800);
-
-        // userClickedPattern = [];
-
-        // } else {
-        // console.log("Not equal arrays");
-        // stopGame();
-        // }
+        if (userClickedPattern.length === gamePattern.length &&
+            userClickedPattern[userClickedPattern.length - 1] === gamePattern[userClickedPattern.length - 1]) {
+            nextSequence();
+            userClickedPattern = [];
+        }
     }
 }
 
 function stopGame() {
-    $("body").addClass("game-over").attr('id', 'wrong')
+    console.log("Stopping Game");
+    $("body").addClass("game-over").attr('id', 'wrong');
     playSound("#wrong");
+    $("h1").text("Game Over, Press Any Key to Restart");
+
+    $("body").one("keypress", function () {
+        sessionStorage.setItem("reloading", "true");
+        location.reload(true);
+    })
+}
+
+window.onload = function () {
+    var reloading = sessionStorage.getItem("reloading");
+    if (reloading) {
+        sessionStorage.removeItem("reloading");
+        restartGame();
+    }
+}
+
+function restartGame() {
+    buttonClick();
+    nextSequence();
 }
