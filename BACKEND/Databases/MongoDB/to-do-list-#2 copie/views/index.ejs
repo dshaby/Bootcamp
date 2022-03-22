@@ -1,0 +1,27 @@
+<%- include("partials/header") %>
+
+    <body>
+        <h1 class="box" id="heading">
+            <%= ejsListType %>
+                <br>
+                <%= ejsWeekend %>
+                    <br>
+                    <%= ejsTodaysDate %>
+        </h1>
+
+        <div class="box">
+            <% ejsToDoList.forEach((task)=> { %>
+                <div class="item">
+                    <input type="checkbox">
+                    <p>
+                        <%= task.name %>
+                    </p>
+                </div>
+                <% }); %>
+                    <form action="<%= ejsRoute %>" method="post">
+                        <input type="text" name="newItem" placeholder="New Item" id="">
+                        <button type="submit">+</button>
+                    </form>
+        </div>
+
+        <%- include("partials/footer"); %>
