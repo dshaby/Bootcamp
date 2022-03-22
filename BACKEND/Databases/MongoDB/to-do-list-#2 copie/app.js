@@ -43,16 +43,14 @@ const defaultItems = [buyFood, cookFood, eatFood];
 app.get('/', (req, res) => {
     Item.find({}, function (err, foundItems) {
         if (err) { console.log(err); }
-
-        // First time logging on:
         else if (foundItems.length === 0) {
-
             Item.insertMany(defaultItems, function (err) {
                 if (err) { console.log(err); }
-                else { console.log("Successfully saved default items into the Item Model Database"); }
+                else { console.log("Successfully insertedMany default items into the Item Model Database"); }
             });
             foundItems = defaultItems;
-        }
+        };
+
         res.render('index', {
             ejsListType: "Regular To-Do-List",
             ejsTodaysDate: dates.todaysDate(),
@@ -64,7 +62,12 @@ app.get('/', (req, res) => {
 });
 
 app.post('/', (req, res) => {
-    regularToDoList.push(req.body.newItem);
+
+    const newItem = new Item({
+        name: req.body.newItem
+    });
+
+    newItem.save();
     res.redirect('/');
 })
 
