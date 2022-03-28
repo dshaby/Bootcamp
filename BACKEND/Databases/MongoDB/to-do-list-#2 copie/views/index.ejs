@@ -2,7 +2,7 @@
 
     <body>
         <h1 class="box" id="heading">
-            <%= ejsListType %>
+            <%= ejsListType %> List
                 <br>
                 <%= ejsWeekend %>
                     <br>
@@ -11,8 +11,9 @@
 
         <div class="box">
             <% ejsToDoList.forEach((task)=> { %>
-                <form action="<%=ejsDeleteRoute%>" method="post">
+                <form action="/delete" method="post">
                     <div class="item">
+                        <input type="hidden" name="dynamicListName" value="<%=ejsListType%>">
                         <input type="checkbox" name="checkedItem" value="<%=task._id%>" onchange="this.form.submit()">
                         <p>
                             <%= task.name %>
@@ -21,9 +22,9 @@
                 </form>
                 <% }); %>
 
-                    <form class="item" action="<%= ejsRoute %>" method="post">
+                    <form class="item" action="/" method="post">
                         <input type="text" name="newItem" placeholder="New Item" id="">
-                        <button type="submit">+</button>
+                        <button type="submit" name="dynamicListName" value="<%=ejsListType%>">+</button>
                     </form>
         </div>
 
