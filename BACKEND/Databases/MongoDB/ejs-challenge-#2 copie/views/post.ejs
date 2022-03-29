@@ -1,9 +1,23 @@
 <%- include("partials/header"); %>
-    <h1>
-        <%= ejsPostTitle %>
-    </h1>
-    <p>
-        <%= ejsPostBody %>
-    </p>
+    <div class="container">
+        <h1>
+            <%= ejsPostTitle %>
+        </h1>
+        <p>
+            <%= ejsPostBody %>
+        </p>
+    </div>
+    <div class="container button-container">
+        <form action="/">
+            <button type="submit" class="btn btn-primary">Back to Home</button>
+        </form>
+    </div>
+    <div class="container button-container">
+        <form action="/delete" method="post">
+            <button type="submit" class="btn btn-danger" name="deleteButton" value="<%=ejsPostID%>">
+                Delete this post
+            </button>
+        </form>
+    </div>
 
     <%- include("partials/footer"); %>

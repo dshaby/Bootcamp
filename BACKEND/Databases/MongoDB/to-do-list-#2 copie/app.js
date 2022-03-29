@@ -56,7 +56,7 @@ const defaultItems = [firstItem, secondItem, thirdItem];
 
 // HOME ROUTE
 app.get('/', (req, res) => {
-    Item.find({}, async function (err, foundItems) {
+    Item.find({}, function (err, foundItems) {
         if (foundItems.length === 0) {
             Item.insertMany(defaultItems, function (err) {
                 if (err) { console.log(err); }

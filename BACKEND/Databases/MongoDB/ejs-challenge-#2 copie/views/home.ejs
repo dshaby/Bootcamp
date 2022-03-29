@@ -1,15 +1,19 @@
 <%- include('partials/header'); %>
-    <h1>Welcome!</h1>
-    <p>
-        <%= ejsHomeStartingContent%>
-    </p>
-    <% ejsPosts.forEach((post)=> { %>
-        <h3>
-            <%= post.title %>
-        </h3>
+    <div class="container">
+        <h1>Welcome!</h1>
         <p>
-            <%= post.body.substring(0,100) + "..." %>
-                <a href="posts/<%= post.title %>">Read More</a>
+            <%= ejsHomeStartingContent%>
         </p>
-        <% }); %>
-            <%- include('partials/footer'); %>
+        <% ejsPosts.forEach((post)=> { %>
+            <h3>
+                <%= post.title %>
+            </h3>
+            <p>
+                <%= post.body.substring(0,100) + "..." %>
+                    <a href="posts/<%= post.title %>">Read More</a>
+                    <a href="posts/id/<%=post._id%>">Read More (ID)</a>
+            </p>
+            <% }); %>
+    </div>
+
+    <%- include('partials/footer'); %>
