@@ -1,4 +1,8 @@
 const express = require('express');
+const mongoose = require('mongoose');
+
+mongoose.connect("mongodb+srv://danielshaby:TBuCFs2esaUQgWDt@blogcluster.mmecz.mongodb.net/BlogDB?retryWrites=true&w=majority")
+
 const req = require('express/lib/request');
 const { forEach } = require('lodash');
 const app = express();
@@ -8,7 +12,8 @@ const { homeStartingContent, aboutContent, contactContent } = require('./content
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public/'));
-app.use(express.urlencoded({ extened: true }));
+app.use(express.urlencoded({ extended: true }));
+
 
 const posts = [];
 
