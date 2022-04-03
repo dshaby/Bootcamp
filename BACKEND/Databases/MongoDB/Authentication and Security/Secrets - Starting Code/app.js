@@ -2,20 +2,16 @@ require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
 const encrypt = require("mongoose-encryption");
+const SHA256 = require("crypto-js/sha256");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 const port = 3000
-//32 bytes
-require('crypto').randomBytes(32, function (err, buffer) {
-    var token = buffer.toString('base64');
-});
 
-//64 bytes
-require('crypto').randomBytes(64, function (err, buffer) {
-    var token = buffer.toString('base64');
-});
 const mongoosePasscode = process.env.mongoosePasscode;
 mongoose.connect("mongodb+srv://danielshaby:" + mongoosePasscode + "@authcluster.yrmin.mongodb.net/AuthDB?retryWrites=true&w=majority");
 const userSchema = new mongoose.Schema({
@@ -28,12 +24,9 @@ const userSchema = new mongoose.Schema({
         required: [true, "This user needs a 'password' "]
     }
 });
-// const secret = "SOME_LONG_UNGUESSABLE_STRING";
-const secret = process.env.SOME_LONG_UNGUESSABLE_STRING;
-// const encKey = process.env.SOME_32BYTE_BASE64_STRING;
-// const sigKey = process.env.SOME_64BYTE_BASE64_STRING;
+// const secret = process.env.SOME_LONG_UNGUESSABLE_STRING;
 
-userSchema.plugin(encrypt, { secret: secret, encryptedFields: ['password'] });
+// userSchema.plugin(encrypt, { secret: secret, encryptedFields: ['password'] });
 // userSchema.plugin(encrypt.encryptedChildren);
 
 const User = mongoose.model("User", userSchema);
@@ -50,17 +43,26 @@ app.route("/login")
     })
     .post((req, res) => {
         const username = req.body.username;
-        const password = req.body.password;
+        const typedPassword = req.body.password
 
         User.findOne({ email: username }, (err, foundUsername) => {
             if (foundUsername) {
-                if (password === foundUsername.password) {
-                    res.render("secrets");
-                } else {
-                    res.render("login", {
-                        errMessage: "Password does not match username."
-                    });
-                }
+                bcrypt.compare(typedPassword, foundUsername.password, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                        res.redirect("/");
+                    }
+                    else if (result === false) {
+                        res.render("login", {
+                            errMessage: "Password does not match username."
+                        });
+                    }
+                    else if (result === true) {
+                        res.render("secrets");
+                        console.log("bcrypt.compare succeeded, passwords match");
+                    }
+                });
+
             } else {
                 console.log(err);
                 res.render("login", {
@@ -75,18 +77,26 @@ app.route("/register")
         res.render("register");
     })
     .post((req, res) => {
-        const newUser = new User({
-            email: req.body.username,
-            password: req.body.password
-        });
-        newUser.save(function (err, results) {
-            if (err) {
-                console.log(err);
-                res.redirect("/");
-            }
+        // goodme
+
+        bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
+            if (err) { console.log(err); }
             else {
-                res.render("secrets");
-                console.log(results);
+                const newUser = new User({
+                    email: req.body.username,
+                    password: hash
+                });
+
+                newUser.save(function (err, results) {
+                    if (err) {
+                        console.log(err);
+                        res.redirect("/");
+                    }
+                    else {
+                        res.render("secrets");
+                        console.log(results);
+                    }
+                });
             }
         });
     });
