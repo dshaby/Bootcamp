@@ -38,7 +38,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "You need a 'username' as defined in userSchema"]
     },
-    userSecrets: Array
+    userSecrets: secretsSchema
 });
 
 userSchema.plugin(passportLocalMongoose);
@@ -151,23 +151,24 @@ app.route("/submit")
     })
     .post((req, res) => {
         const submittedSecret = req.body.secret;
-        User.findOneAndUpdate({ username: req.user.username }, { $push: { userSecrets: submittedSecret } }, function (err, foundUser) {
-            if (err) { console.log(err); }
-            else {
-                const newSecret = new Secret({
-                    secret: submittedSecret
-                });
 
-                newSecret.save((err, results) => {
-                    if (err) console.log(err);
-                    else {
-                        if (results) {
+        const newSecret = new Secret({
+            secret: submittedSecret
+        });
+
+        newSecret.save((err, results) => {
+            if (err) console.log(err);
+            else {
+                if (results) {
+                    User.findOneAndUpdate({ username: req.user.username }, { $push: { userSecrets: newSecret } }, function (err, foundUser) {
+                        if (err) { console.log(err); }
+                        else {
                             res.redirect("/secrets")
                         }
-                    }
-                })
+                    })
+                }
             }
-        })
+        });
     });
 
 app.get("/secrets", (req, res) => {
