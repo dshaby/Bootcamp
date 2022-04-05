@@ -23,6 +23,17 @@
               </div>
               <button type="submit" class="btn btn-dark mt-3">Login</button>
             </form>
+            <form action="/login/federated/google" method="post">
+              <a class="button google btn-social btn-google" href="/login/federated/google">
+                <i class="fa-brands fa-google"></i>
+                Sign in with Google
+              </a>
+              <% if (messages.error) { %>
+                <p class="error-text">
+                  <%=messages.error%>
+                </p>
+                <% } %>
+            </form>
 
           </div>
         </div>

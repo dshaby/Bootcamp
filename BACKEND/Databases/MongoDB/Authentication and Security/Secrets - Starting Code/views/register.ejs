@@ -19,23 +19,21 @@
               </div>
               <button type="submit" class="btn btn-dark">Register</button>
             </form>
+            <form action="/login/federated/google" method="post">
+              <a class="button google" href="/login/federated/google">Sign in with Google</a>
+              <% if (messages.error) { %>
+                <p class="error-text">
+                  <%=messages.error%>
+                </p>
+                <% } %>
+            </form>
 
           </div>
         </div>
       </div>
-
-      <!-- <div class="col-sm-4">
-      <div class="card social-block">
-        <div class="card-body">
-          <a class="btn btn-block" href="/auth/google" role="button">
-            <i class="fab fa-google"></i>
-            Sign Up with Google
-          </a>
-        </div>
-      </div>
-    </div> -->
-
     </div>
+
+  </div>
   </div>
 
   <%- include('partials/header') %>
