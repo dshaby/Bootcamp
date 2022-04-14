@@ -64,6 +64,7 @@
     height: 36px;
     cursor: pointer;
     outline: none;
+    background-color: #fff;
   }
   
   form {
@@ -89,7 +90,7 @@
     position: absolute;
     right: 18px;
     bottom: -18px;
-    background: #f5ba13;
+    background: #1b1811;
     color: #fff;
     border: none;
     border-radius: 50%;
