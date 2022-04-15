@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid"
+import AddIcon from '@mui/icons-material/Add';
+import { Fab } from "@mui/material";
+import { Zoom } from '@mui/material';
 
 export function NewNote(props) {
 
@@ -32,15 +35,32 @@ export function NewNote(props) {
             title: "",
             content: "",
         })
+
+        setExpand(false)
     }
+
+    const [isExpanded, setExpand] = useState(false);
 
     return (
         <div>
-            <form onSubmit={AddItem} action="">
-                <input onChange={writingNote} name="title" value={newNote.title} placeholder="Title" />
-                <textarea onChange={writingNote} value={newNote.content} name="content" placeholder="Take a note..." rows="3">
+            <form className="create-note" onSubmit={AddItem}>
+                {isExpanded && (
+                    <input onChange={writingNote}
+                        name="title"
+                        value={newNote.title}
+                        placeholder="Title" />
+                )}
+                <textarea
+                    onClick={() => setExpand(true)}
+                    onChange={writingNote}
+                    value={newNote.content}
+                    name="content"
+                    placeholder="Take a note..."
+                    rows={isExpanded ? 3 : 1}>
                 </textarea>
-                <button type="submit">Add</button>
+                <Zoom in={isExpanded}>
+                    <Fab type="submit"><AddIcon /></Fab>
+                </Zoom>
             </form>
         </div>
     );
