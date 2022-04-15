@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { Note } from "./Note";
@@ -27,6 +26,14 @@ export function App() {
       });
    }
 
+   function deleteNote(id) {
+      setAllNotes((prevNotes) => {
+         return prevNotes.filter((note) => {
+            return note.id !== id;
+         })
+      })
+   }
+
    return (
       <div>
          <Header />
@@ -37,7 +44,9 @@ export function App() {
                <Note
                   key={uuidv4()}
                   title={note.title}
-                  content={note.content} />
+                  content={note.content}
+                  onDelete={deleteNote} //changed from setAllNotes
+                  id={note.id} />
             )
          })}
          {notes.map(createNote)}
