@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 export function Note(props) {
 
     function deleteNote() {
-        props.onDelete(props.id);
+        props.onDelete(props.id, props.index);
     }
 
     return (

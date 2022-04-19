@@ -1,10 +1,11 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { Note } from "./Note";
 import { notes } from "../notes"
 import { NewNote } from "./NewNote"
-import { v4 as uuidv4 } from "uuid"
+import { v4 as uuidv4 } from "uuid";
+import { dKeeper } from "../../../declarations/dKeeper";
 
 
 export function createNote(note) {
@@ -22,11 +23,22 @@ export function App() {
 
    function AddNote(newNote) {
       setAllNotes((prevValue) => {
-         return [...prevValue, newNote];
+         dKeeper.createNote(newNote.title, newNote.content, newNote.id);
+         return [newNote, ...prevValue];
       });
    }
 
-   function deleteNote(id) {
+   useEffect(() => {
+      fetchNotes();
+   }, []);
+
+   async function fetchNotes() {
+      const notesArray = await dKeeper.readNotes();
+      setAllNotes(notesArray);
+   }
+
+   function deleteNote(id, index) {
+      dKeeper.removeNote(index);
       setAllNotes((prevNotes) => {
          return prevNotes.filter((note) => {
             return note.id !== id;
@@ -39,14 +51,15 @@ export function App() {
          <Header />
          <NewNote
             onAdd={AddNote} />
-         {allNotes.map((note) => {
+         {allNotes.map((note, index) => {
             return (
                <Note
                   key={uuidv4()}
                   title={note.title}
                   content={note.content}
-                  onDelete={deleteNote} //changed from setAllNotes
-                  id={note.id} />
+                  onDelete={deleteNote}
+                  id={note.id}
+                  index={index} />
             )
          })}
          {notes.map(createNote)}

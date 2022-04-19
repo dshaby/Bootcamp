@@ -22,9 +22,9 @@ export function NewNote(props) {
                 ...prevValue,
                 [name]: value,
                 id: uuidv4()
-            }
-        })
-    }
+            };
+        });
+    };
 
     function AddItem(e) {
         e.preventDefault();
@@ -34,7 +34,8 @@ export function NewNote(props) {
         setNewNote({
             title: "",
             content: "",
-        })
+            id: ""
+        });
 
         setExpand(false)
     }
