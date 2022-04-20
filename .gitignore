@@ -1,4 +1,5 @@
-
+node_modules
+.DS_Store
 BACKEND/APIs/Newsletter-Signup/
 REACT/.DS_Store
 README.md
