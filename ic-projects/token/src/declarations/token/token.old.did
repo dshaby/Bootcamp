@@ -2,4 +2,6 @@ service : {
   balanceOf: (principal) -> (nat) query;
   getSymbol: () -> (text) query;
   payOut: () -> (text);
+  querySupply: () -> (nat) query;
+  transfer: (principal, nat) -> (text);
 }
