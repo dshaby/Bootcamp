@@ -29,9 +29,9 @@ actor Token {
     // }
   };
 
-  public func transfer(to: Principal, amount: Nat) : async Text {
+  public func transfer() {
     let result = await payOut();
-    return "Hey";
+    // return "Hey";
   };
 
   public query func getSymbol() : async Text  {
