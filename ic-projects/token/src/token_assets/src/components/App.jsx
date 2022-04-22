@@ -5,8 +5,6 @@ import Balance from "./Balance";
 import Transfer from "./Transfer";
 
 function App() {
-
-
   return (
     <div id="screen">
       <Header />
