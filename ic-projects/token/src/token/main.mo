@@ -54,6 +54,7 @@ actor Token {
   // TRANSFER
   public shared(msg) func transfer(to: Principal, amount: Nat) : async Text {
     let fromBalance = await balanceOf(msg.caller);
+    Debug.print(debug_show(fromBalance));
 
     if (fromBalance >= amount) {
       // Remove $

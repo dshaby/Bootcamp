@@ -11,6 +11,7 @@ actor DKeeper {
   };
 
   stable var notes: List.List<Note> = List.nil<Note>();
+  
   // CREATE
   public func createNote(titleText: Text, contentText: Text, myID: Text) {
     let newNote: Note = {
@@ -23,7 +24,7 @@ actor DKeeper {
     Debug.print(debug_show(notes));  
   };
 
-  // READ QUERY = faster
+  // READ QUERY
   public query func readNotes(): async [Note] {
     return List.toArray(notes);
   };
@@ -34,12 +35,4 @@ actor DKeeper {
       var dropNotes = List.drop(notes, index + 1);
       notes := List.append(takeNotes,dropNotes);
      };
-    //  Wish I could figure out how to delete by ID.
 };
-
-
-// actor {
-//   public func greet(name : Text) : async Text {
-//     return "Hello, " # name # "!";
-//   };
-// };

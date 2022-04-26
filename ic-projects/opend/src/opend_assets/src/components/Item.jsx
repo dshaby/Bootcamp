@@ -4,9 +4,10 @@ import { Actor, HttpAgent } from "@dfinity/agent";
 import { idlFactory } from "../../../declarations/NFT/NFT.did.js";
 import { Principal } from "@dfinity/principal";
 import Button from "./Button";
-import {opend} from "../../../declarations/opend";
+import { opend } from "../../../declarations/opend";
 import CURRENT_USER_ID from "../index";
 import PriceLabel from "./PriceLabel";
+import { idlFactory as tokenIdlFactory } from "../../../declarations/token";
 
 function Item(props) {
 
@@ -19,14 +20,16 @@ function Item(props) {
   const [blur, setBlur] = useState();
   const [sellStatus, setSellStatus] = useState("");
   const [priceLabel, setPriceLabel] = useState();
+  const [shouldDisplay, setDisplay] = useState(true);
+
 
   const id = props.id;
-  console.log("id: "+id);
+  console.log("id: " + id);
 
   const localHost = "http://localhost:8080/";
   const agent = new HttpAgent({ host: localHost });
   // TODO: When deploying live, remove the following line
-  agent.fetchRootKey(); 
+  agent.fetchRootKey();
   let NFTActor;
 
   async function loadNFT() {
@@ -45,24 +48,24 @@ function Item(props) {
     setName(name);
     setOwner(owner.toText());
     setimgData(imageURL);
-    
+
     if (props.role == "collection") {
       const nftIsListed = await opend.isListed(props.id);
       if (nftIsListed) {
         setOwner("OpenD");
-        setBlur({filter: "blur(4px)"});
+        setBlur({ filter: "blur(4px)" });
         setSellStatus("Listed");
       } else {
-        setButton(<Button handleClick={handleSell} text={"Sell"} /> );
-      } 
+        setButton(<Button handleClick={handleSell} text={"Sell"} />);
+      }
     } else if (props.role == "discover") {
       const originalOwner = await opend.getOriginalOwner(props.id);
       if (originalOwner.toText() != CURRENT_USER_ID.toText()) {
-        setButton(<Button handleClick={handleBuy} text={"Buy"} /> );
+        setButton(<Button handleClick={handleBuy} text={"Buy"} />);
       }
 
       const price = await opend.getListedNFTPrice(props.id);
-      setPriceLabel(<PriceLabel sellPrice={price.toString()}/>);
+      setPriceLabel(<PriceLabel sellPrice={price.toString()} />);
 
     }
   }
@@ -71,23 +74,23 @@ function Item(props) {
 
   let price;
 
-  function handleSell () {
+  function handleSell() {
     setPriceInput(<input
       placeholder="Price in DANG"
       type="number"
       className="price-input"
       value={price}
-      onChange={(e) => price=e.target.value}
+      onChange={(e) => price = e.target.value}
     />);
     setButton(<Button handleClick={sellItem} text={"Confirm"} />)
   }
 
   async function sellItem() {
-    setBlur({filter: "blur(4px)"});
+    setBlur({ filter: "blur(4px)" });
     setLoaderHidden(false);
     console.log(price);
     const listingResult = await opend.listItem(props.id, Number(price));
-    console.log("listingResult: "+listingResult); 
+    console.log("listingResult: " + listingResult);
     if (listingResult == "Success") {
       const opendId = await opend.getOpenDCanisterID();
       const transferResult = await NFTActor.transferOwnership(opendId);
@@ -100,14 +103,30 @@ function Item(props) {
         setSellStatus("Listed");
       }
     }
-  } 
+  }
 
-  async function handleBuy () {
+  async function handleBuy() {
     console.log("handleBuy was triggered!");
+    setLoaderHidden(false);
+    const tokenActor = await Actor.createActor(tokenIdlFactory, {
+      agent,
+      canisterId: Principal.fromText("rrkah-fqaaa-aaaaa-aaaaq-cai"),
+    });
+
+    const sellerId = await opend.getOriginalOwner(props.id);
+    const itemPrice = await opend.getListedNFTPrice(props.id);
+
+    const result = await tokenActor.transfer(sellerId, itemPrice);
+    if (result === "Success!") {
+      const transferResult = await opend.completePurchase(props.id, sellerId, CURRENT_USER_ID);
+      console.log("Purchase: " + transferResult);
+      setLoaderHidden(true);
+      setDisplay(false);
+    }
   }
 
   return (
-    <div className="disGrid-item">
+    <div style={{ display: shouldDisplay ? "inline" : "none" }} className="disGrid-item">
       <div className="disPaper-root disCard-root makeStyles-root-17 disPaper-elevation1 disPaper-rounded">
         <img
           className="disCardMedia-root makeStyles-image-19 disCardMedia-media disCardMedia-img"

@@ -62,7 +62,8 @@ export function App() {
                   index={index} />
             )
          })}
-         {notes.map(createNote)}
+         {/* from notes.js */}
+         {/* {notes.map(createNote)} */}
          <Footer />
       </div>
    );
