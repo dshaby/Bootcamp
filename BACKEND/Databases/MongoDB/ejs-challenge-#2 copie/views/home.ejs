@@ -3,15 +3,17 @@
         <h1>Welcome!</h1>
         <p>
             <%= ejsHomeStartingContent%>
+                <a target="_blank" href="https://ejs.co/">EJS</a>
+                <%= ejsHomeStartingContent2%>
         </p>
         <% ejsPosts.forEach((post)=> { %>
             <h3>
                 <%= post.title %>
             </h3>
             <p>
-                <%= post.body.substring(0,100) + "..." %>
-                    <a href="posts/<%= post.title %>">Read More</a>
-                    <a href="posts/id/<%=post._id%>">Read More (ID)</a>
+                <%= post.body.substring(0,26) + "..." %>
+                    <!-- <a href="posts/<%= post.title %>">Read More</a> -->
+                    <a href="posts/id/<%=post._id%>">Read More</a>
             </p>
             <% }); %>
     </div>

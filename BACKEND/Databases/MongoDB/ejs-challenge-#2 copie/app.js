@@ -1,17 +1,18 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require("mongoose");
 const req = require('express/lib/request');
 const { forEach, first } = require('lodash');
 const app = express();
-const port = 3000
+const port = process.env.PORT || 5000;
 const _ = require("lodash");
-const { homeStartingContent, aboutContent, contactContent } = require('./content');
+const { homeStartingContent, homeStartingContent2, aboutContent, contactContent } = require('./content');
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public/'));
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect("mongodb+srv://danielshaby:TBuCFs2esaUQgWDt@blogcluster.mmecz.mongodb.net/BlogDB?retryWrites=true&w=majority");
+mongoose.connect(process.env.mongoURI);
 // Create Schemas
 const postsSchema = {
   title: {
@@ -59,6 +60,7 @@ app.get('/', (req, res) => {
     else {
       res.render("home", {
         ejsHomeStartingContent: homeStartingContent,
+        ejsHomeStartingContent2: homeStartingContent2,
         ejsPosts: foundPosts
       });
     }
@@ -133,4 +135,4 @@ app.post("/delete", (req, res) => {
 
 app.listen(port, () => {
   console.log('Example app listening on port: ' + port);
-})
+});
