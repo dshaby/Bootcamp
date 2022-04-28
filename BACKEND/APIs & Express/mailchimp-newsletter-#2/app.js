@@ -1,7 +1,7 @@
+require('dotenv').config();
 const express = require('express');
 const methodOverride = require('method-override');
 const app = express();
-const apiKey = require('./apiKey');
 app.use(methodOverride('_method'));
 
 app.set('view engine', 'ejs');
@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 const mailchimp = require("@mailchimp/mailchimp_marketing");
 
 mailchimp.setConfig({
-    apiKey: apiKey.getAPIKey(),
+    apiKey: process.env.mailchimpAPI,
     server: "us14",
 });
 
@@ -28,7 +28,8 @@ app.put('/', (req, res) => {
                     FNAME: req.body.firstName,
                     LNAME: req.body.lastName,
                 },
-                status: "subscribed",
+                email_address: req.body.email,
+                status_if_new: "subscribed",
             });
             console.log(response);
             res.render('success');
@@ -45,4 +46,11 @@ app.put('/', (req, res) => {
     run();
 });
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'));
+let port = process.env.PORT;
+if (port == null || port == "") {
+    port = 3000;
+}
+
+app.listen(port, function () {
+    console.log("App listening on port: " + port);
+});

@@ -2,6 +2,7 @@ html,
 body {
   height: 100%;
 }
+
 body {
   align-items: center;
   padding-top: 40px;
@@ -28,8 +29,8 @@ body {
 }
 
 .form-signin input[id="lastName"] {
-    margin-bottom: -1px;
-    border-radius: 0;
+  margin-bottom: -1px;
+  border-radius: 0;
 }
 
 .form-signin input[type="email"] {
@@ -39,6 +40,10 @@ body {
 }
 
 /* SUCCESS/FAILURE PAGES */
+.success-container {
+  text-align: left;
+}
+
 .card {
   background: white;
   padding: 60px;
@@ -52,7 +57,7 @@ i {
   color: #9ABC66;
   font-size: 100px;
   line-height: 200px;
-  margin-left:-15px;
+  margin-left: -15px;
 }
 
 .hCard {
@@ -74,7 +79,7 @@ i {
 .pCard {
   color: #404F5E;
   font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
-  font-size:20px;
+  font-size: 20px;
   margin: 0;
   text-align: center;
   max-width: 500px;
